@@ -8,7 +8,11 @@ body {
   background-repeat: no-repeat;
   height: 50px;
   width: 75px;
-  position: relative;
+  position: absolute;
   left: 300px;
   top: 300px;
+}
+
+.enemyFish {
+  background-color: red;
 }
