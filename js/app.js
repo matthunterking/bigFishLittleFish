@@ -2,7 +2,8 @@ console.log('connected!');
 
 const keys = { 38: ['top', '-'], 40: ['top', '+'], 37: ['left', '-'], 39: ['left', '+'] };
 const $player = $('<div class="playerFish"></div>');
-const playerPostion = { top: 300, left: 300 };
+const playerPostion = { top: 300, left: 300, bottom: 350, right: 475 };
+const fishInPlay = [];
 
 function setUp() {
   //Create a player div - Set size, add controls/movement
@@ -25,9 +26,23 @@ function addControls() {
 
 function movePlayer(direction) {
   direction[1] === '+' ? playerPostion[direction[0]] += 3 : playerPostion[direction[0]] -= 3;
+  playerPostion.bottom = playerPostion.top + 50;
+  playerPostion.right = playerPostion.left + 75;
   console.log('in move', playerPostion);
   $player.css(`${direction[0]}`, `${playerPostion[direction[0]]}px`);
+  console.log(checkCollision());
 }
+
+function checkCollision() {
+  return fishInPlay.some(fish => {
+    return playerPostion.left < fish.right
+        && playerPostion.right > fish.left
+        && playerPostion.bottom > fish.top
+        && playerPostion.top < fish.bottom;
+  });
+}
+
+
 
 //Check for collision - if collision then compare the sizes of Fish
 
