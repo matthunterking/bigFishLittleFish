@@ -1,4 +1,14 @@
 body {
   background-color: blue; }
 
+.playerFish {
+  background-image: url("./images/fish.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 50px;
+  width: 75px;
+  position: relative;
+  left: 300px;
+  top: 300px; }
+
 /*# sourceMappingURL=style.css.map */
