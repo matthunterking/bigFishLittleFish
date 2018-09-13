@@ -8,15 +8,20 @@ const playerPostion = {
   left: 300,
   right: 375,
   width: 75,
-  height: 50 };
+  height: 50,
+  domElement: $player
+};
 let fishInPlay = [];
+let gameOver = false;
 
 function setUp() {
   //Create a player div - Set size, add controls/movement
   createPlayer();
-  createEnemyFish();
-  createEnemyFish();
-  console.log(fishInPlay);
+  setInterval(() => {
+    console.log(gameOver);
+    if(!gameOver) createEnemyFish();
+    if(gameOver) window.alert('GAME OVER');
+  }, 1000);
   //Create a gameboard
   //Randomly generate other Fish
 }
@@ -34,9 +39,9 @@ function createEnemyFish() {
   const startPoint = Math.floor(Math.random() * 500) + 100;
   const ememyFish = {
     top: (startPoint - size),
-    left: 800,
+    left: 1100,
     bottom: startPoint,
-    right: 800 + (size * 1.25),
+    right: 1100 + (size * 1.25),
     height: size,
     width: (size * 1.25),
     domElement: $enemyFish
@@ -47,6 +52,7 @@ function createEnemyFish() {
   $enemyFish.css('left', `${ememyFish.left}px`);
   $enemyFish.css('height', `${ememyFish.height}px`);
   $enemyFish.css('width', `${ememyFish.width}px`);
+  moveEmemyFish(ememyFish);
 }
 
 //make fish a class remove is a method on this
@@ -64,10 +70,27 @@ function movePlayer(direction) {
   playerPostion.right = playerPostion.left + playerPostion.width;
   $player.css(`${direction[0]}`, `${playerPostion[direction[0]]}px`);
   const eatenFish = checkCollision();
-  // console.log(eatenFish);
-  if(eatenFish.length) removeFish(eatenFish);
+  checkSize(eatenFish);
+  if(eatenFish.length) {
+    removeFish(eatenFish);
+    increaseSize();
+  }
+
 }
 
+function moveEmemyFish(ememyFish) {
+  setInterval(() => {
+    const left = ememyFish.left --;
+    ememyFish.domElement.css('left', `${left}px`);
+  }, 10);
+}
+
+function increaseSize() {
+  playerPostion.height += 5;
+  playerPostion.width += 5;
+  playerPostion.domElement.css('height', `${playerPostion.height}px`);
+  playerPostion.domElement.css('width', `${playerPostion.width}px`);
+}
 
 //// TODO: Make check collion return the fish that has been hit rather than just true or false
 function checkCollision() {
@@ -79,8 +102,13 @@ function checkCollision() {
   });
 }
 
-function checkSize() {
-
+function checkSize(eatenFish) {
+  const playerSize = playerPostion.width * playerPostion.height;
+  gameOver = !!eatenFish.filter(fish => {
+    const fishSize = fish.width * fish.height;
+    console.log(fishSize, playerSize);
+    return fishSize > playerSize;
+  }).length;
 }
 
 function removeFish(eatenFish) {
