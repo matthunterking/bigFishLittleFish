@@ -9,12 +9,14 @@ const playerPostion = {
   right: 375,
   width: 75,
   height: 50 };
-const fishInPlay = [];
+let fishInPlay = [];
 
 function setUp() {
   //Create a player div - Set size, add controls/movement
   createPlayer();
   createEnemyFish();
+  createEnemyFish();
+  console.log(fishInPlay);
   //Create a gameboard
   //Randomly generate other Fish
 }
@@ -36,9 +38,9 @@ function createEnemyFish() {
     bottom: startPoint,
     right: 800 + (size * 1.25),
     height: size,
-    width: (size * 1.25)
+    width: (size * 1.25),
+    domElement: $enemyFish
   };
-  console.log(playerPostion, ememyFish );
   fishInPlay.push(ememyFish);
   $('body').append($enemyFish);
   $enemyFish.css('top', `${ememyFish.top}px`);
@@ -46,6 +48,8 @@ function createEnemyFish() {
   $enemyFish.css('height', `${ememyFish.height}px`);
   $enemyFish.css('width', `${ememyFish.width}px`);
 }
+
+//make fish a class remove is a method on this
 
 function addControls() {
   $(window).keydown((e) => {
@@ -58,16 +62,16 @@ function movePlayer(direction) {
   direction[1] === '+' ? playerPostion[direction[0]] += 3 : playerPostion[direction[0]] -= 3;
   playerPostion.bottom = playerPostion.top + playerPostion.height;
   playerPostion.right = playerPostion.left + playerPostion.width;
-  // console.log('in move', playerPostion);
   $player.css(`${direction[0]}`, `${playerPostion[direction[0]]}px`);
-  if(checkCollision()) checkSize();
+  const eatenFish = checkCollision();
+  // console.log(eatenFish);
+  if(eatenFish.length) removeFish(eatenFish);
 }
 
 
 //// TODO: Make check collion return the fish that has been hit rather than just true or false
 function checkCollision() {
-  return fishInPlay.some(fish => {
-    console.log('ememyFish =>', fish, 'player', playerPostion);
+  return fishInPlay.filter(fish => {
     return playerPostion.left < fish.right
         && playerPostion.right > fish.left
         && playerPostion.bottom > fish.top
@@ -77,6 +81,11 @@ function checkCollision() {
 
 function checkSize() {
 
+}
+
+function removeFish(eatenFish) {
+  fishInPlay = fishInPlay.filter(fish => !eatenFish.includes(fish));
+  eatenFish.forEach(fish => fish.domElement.remove());
 }
 
 
