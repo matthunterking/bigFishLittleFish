@@ -1,5 +1,23 @@
 body {
-  background-color: blue;
+  background-color:  #122f3d;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Ruslan Display', cursive;
+  font-size: 40px;
+  color: #f6de6c;
+}
+
+.gameboard {
+  background-color: #34738f;
+  width: 80%;
+  height: 600px;
+  margin-left: 10%;
+  border: 3px solid #ed8a45;
 }
 
 .playerFish {
@@ -11,7 +29,6 @@ body {
   position: absolute;
   left: 300px;
   top: 300px;
-  // border: 1px solid red;
 }
 
 .enemyFish {

@@ -1,4 +1,3 @@
-
 const keys = { 38: ['top', '-'], 40: ['top', '+'], 37: ['left', '-'], 39: ['left', '+'] };
 const $player = $('<div class="playerFish"></div>');
 const playerPostion = {
@@ -15,19 +14,15 @@ let eatenFish;
 let gameOver = false;
 
 function setUp() {
-  //Create a player div - Set size, add controls/movement
   createPlayer();
   setInterval(() => {
-    console.log(gameOver);
     if(!gameOver) createEnemyFish();
     if(gameOver) window.alert('GAME OVER');
   }, 1000);
-  //Create a gameboard
-  //Randomly generate other Fish
 }
 
 function createPlayer() {
-  $('body').append($player);
+  $('.gameboard').append($player);
   $player.css('top', `${playerPostion.bottom}px`);
   $player.css('left', `${playerPostion.left}px`);
   addControls();
@@ -39,7 +34,7 @@ function createEnemyFish() {
   const range = { min: playerPostion.width - 90, max: playerPostion.width + 10 };
   const size = Math.floor(Math.random() * range.max) + range.min;
   const speed = Math.floor(Math.random() * 80) + 20;
-  const startPoint = Math.floor(Math.random() * 600) + 100;
+  const startPoint = Math.floor(Math.random() * 500) + 150;
   const ememyFish = {
     top: (startPoint - size),
     left: 1100,
@@ -58,8 +53,6 @@ function createEnemyFish() {
   $enemyFish.css('width', `${ememyFish.width}px`);
   moveEmemyFish(ememyFish);
 }
-
-//make fish a class remove is a method on this
 
 function addControls() {
   $(window).keydown((e) => {
@@ -92,7 +85,6 @@ function increaseSize() {
   playerPostion.domElement.css('width', `${playerPostion.width}px`);
 }
 
-//// TODO: Make check collion return the fish that has been hit rather than just true or false
 function checkCollision() {
   eatenFish = fishInPlay.filter(fish => {
     return playerPostion.left < fish.right
@@ -122,14 +114,6 @@ function removeFish(eatenFish) {
   fishInPlay = fishInPlay.filter(fish => !eatenFish.includes(fish));
   eatenFish.forEach(fish => fish.domElement.remove());
 }
-
-
-
-//Check for collision - if collision then compare the sizes of Fish
-
-//Function to check if game over or increase the player size - Remove fish from game
-
-//Function to increase player size
 
 $(function(){
   setUp();
