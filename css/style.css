@@ -3,15 +3,17 @@ body {
 
 .playerFish {
   background-image: url("./images/fish.png");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   height: 50px;
-  width: 75px;
+  width: 90px;
   position: absolute;
   left: 300px;
-  top: 300px; }
+  top: 300px;
+  border: 1px solid red; }
 
 .enemyFish {
-  background-color: red; }
+  background-image: url("./images/enemy.png");
+  background-size: cover; }
 
 /*# sourceMappingURL=style.css.map */
