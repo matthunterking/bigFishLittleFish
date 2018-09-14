@@ -69,7 +69,7 @@ function addControls() {
 }
 
 function movePlayer(direction) {
-  direction[1] === '+' ? playerPostion[direction[0]] += 3 : playerPostion[direction[0]] -= 3;
+  direction[1] === '+' ? playerPostion[direction[0]] += 5 : playerPostion[direction[0]] -= 5;
   playerPostion.bottom = playerPostion.top + playerPostion.height;
   playerPostion.right = playerPostion.left + playerPostion.width;
   $player.css(`${direction[0]}`, `${playerPostion[direction[0]]}px`);
@@ -113,7 +113,9 @@ function checkSize() {
     const fishSize = fish.width * fish.height;
     return fishSize > playerSize;
   }).length;
-  if(gameOver) return window.alert('GAME OVER!');
+  if(gameOver) {
+    window.alert('GAME OVER!');
+  }
 }
 
 function removeFish(eatenFish) {
