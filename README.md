@@ -1,6 +1,6 @@
 <!-- TITLE -> For WDI projects "WDI - Project 1" -->
 <!-- IMAGE -> For WDI projects "https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png" for not WDI "MHK LOGO" -->
-# Big Fish Little Fish <img style='float: right' src=''>
+# Big Fish Little Fish
 
 ---
 <a href='http://matthunterking.com/bigFishLittleFish/'>
